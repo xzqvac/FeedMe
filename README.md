@@ -1,1 +1,2 @@
 # FeedMe
+Aplikacja żywieniowa
