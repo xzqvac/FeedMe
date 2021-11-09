@@ -73,22 +73,14 @@ void Filter::next()
 
 bool Filter::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
 {
-    //get the index of the item
     QModelIndex index = sourceModel()->index(source_row, filterKeyColumn(), source_parent);
 
-    //Make sure it meets our filter
     if(!sourceModel()->data(index).toString().contains(filterRegularExpression()))
         return process(false, false, "Failed to filter");
 
-    //Allow if not paging the data
     if(!pagedata) return process(true, true, "Not paging");
 
-    //Ife we are here, we are paging the results
-
     if(total_added >= pagesize) return process(false, true, "Not in page range");
-
-    //if we made it here, passed the filters and in the page!
-    //make sure it is in the current page
 
     if(total_passed >= min && total_passed < max)
         return process(true, true, "In page range");
@@ -119,7 +111,6 @@ bool Filter::process(bool allowed, bool countonly, QString reason) const
     }
 
     qInfo() << "Zezwolono: " << allowed << reason;
-    //qDebug() << total_processed << " of " << sourceModel()->rowCount();
     if(total_processed >= sourceModel()->rowCount()) emit finished();
 
     return allowed;

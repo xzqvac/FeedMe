@@ -37,12 +37,11 @@ bool Data::loadTable(QString path, QStandardItemModel *model)
 
     //Setup the model
     QStringList headers;
-    headers.append("Item");
+    headers.append("Składniki");
 
     model->setColumnCount(1);
     model->setHorizontalHeaderLabels(headers);
 
-    //Fill the model with data
 
     QFile file(path);
 
