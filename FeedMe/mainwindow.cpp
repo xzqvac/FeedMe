@@ -1,12 +1,26 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
+#include <QIntValidator>
+#include <QMessageBox>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    {
+    QSqlDatabase mydb =QSqlDatabase::addDatabase("QSQLITE");
+    mydb.setDatabaseName("C:/Users/Radosław/Desktop/projektc++/FeedMe/shoppingListDB.db");
 
+    if(!mydb.open())
+    {
+        ui->checkConntecionwithDB->setText("Failed");
+    }
+    else
+        ui->checkConntecionwithDB->setText("Connected....");
+    }
     filter.setPageData(true);
     filter.setPageSize(10);
     filter.setCurrentPage(0);
@@ -136,5 +150,46 @@ void MainWindow::on_actiontest_triggered()
         return;
     }
     loadFile(path);
+}
+
+void MainWindow::on_addProduct_clicked()
+{
+    connOpen();
+    QSqlQuery database;
+
+    QString Product, Amount;
+    Product = ui -> Name_linetxt -> text();
+    QIntValidator *onlyInt = new QIntValidator(0,100000);
+    ui -> Amount_linetxt -> setValidator(onlyInt);
+    Amount = ui -> Amount_linetxt -> text();
+
+    database.prepare("insert into shoppingList (Product, Amount) values ('"+Product+"', '"+Amount+"')");
+
+    if(database.exec())
+    {
+        QMessageBox::critical(this, tr("Save"), tr("Saved"));
+        connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this, tr("Error"), database.lastError().text());
+    }
+}
+
+
+void MainWindow::on_loadData_clicked()
+{
+    QSqlQueryModel * modal = new QSqlQueryModel();
+
+    connOpen();
+    QSqlQuery *database = new QSqlQuery(mydb);
+
+    database->prepare("select * from shoppingList");
+    database->exec();
+    modal->setQuery(*database);
+    ui->tableView_2->setModel(modal);
+    connClose();
+
+
 }
 
