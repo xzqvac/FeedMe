@@ -59,7 +59,14 @@ public:
     QLabel *lblCount;
     QPushButton *btn_next_page;
     QWidget *Shopping;
-    QLabel *label_5;
+    QLabel *checkConntecionwithDB;
+    QLineEdit *Name_linetxt;
+    QLabel *NazwaProduktu;
+    QLabel *Ilosc;
+    QPushButton *addProduct;
+    QLineEdit *Amount_linetxt;
+    QTableView *tableView_2;
+    QPushButton *loadData;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -88,7 +95,7 @@ public:
         topMenu->setFrameShadow(QFrame::Raised);
         logo = new QLabel(topMenu);
         logo->setObjectName(QString::fromUtf8("logo"));
-        logo->setGeometry(QRect(210, 0, 311, 71));
+        logo->setGeometry(QRect(200, 0, 311, 81));
         logo->setPixmap(QPixmap(QString::fromUtf8("D:/tutorial/asd/FeedMe/images/l11.png")));
         leftMenu = new QFrame(centralwidget);
         leftMenu->setObjectName(QString::fromUtf8("leftMenu"));
@@ -326,15 +333,36 @@ public:
         stackedWidget->addWidget(Kitchen);
         Shopping = new QWidget();
         Shopping->setObjectName(QString::fromUtf8("Shopping"));
-        label_5 = new QLabel(Shopping);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setGeometry(QRect(270, 290, 47, 13));
+        checkConntecionwithDB = new QLabel(Shopping);
+        checkConntecionwithDB->setObjectName(QString::fromUtf8("checkConntecionwithDB"));
+        checkConntecionwithDB->setGeometry(QRect(60, 420, 151, 61));
+        Name_linetxt = new QLineEdit(Shopping);
+        Name_linetxt->setObjectName(QString::fromUtf8("Name_linetxt"));
+        Name_linetxt->setGeometry(QRect(80, 190, 151, 20));
+        NazwaProduktu = new QLabel(Shopping);
+        NazwaProduktu->setObjectName(QString::fromUtf8("NazwaProduktu"));
+        NazwaProduktu->setGeometry(QRect(21, 191, 32, 16));
+        Ilosc = new QLabel(Shopping);
+        Ilosc->setObjectName(QString::fromUtf8("Ilosc"));
+        Ilosc->setGeometry(QRect(21, 217, 22, 16));
+        addProduct = new QPushButton(Shopping);
+        addProduct->setObjectName(QString::fromUtf8("addProduct"));
+        addProduct->setGeometry(QRect(80, 260, 151, 23));
+        Amount_linetxt = new QLineEdit(Shopping);
+        Amount_linetxt->setObjectName(QString::fromUtf8("Amount_linetxt"));
+        Amount_linetxt->setGeometry(QRect(80, 220, 151, 20));
+        tableView_2 = new QTableView(Shopping);
+        tableView_2->setObjectName(QString::fromUtf8("tableView_2"));
+        tableView_2->setGeometry(QRect(280, 140, 256, 192));
+        loadData = new QPushButton(Shopping);
+        loadData->setObjectName(QString::fromUtf8("loadData"));
+        loadData->setGeometry(QRect(480, 490, 75, 23));
         stackedWidget->addWidget(Shopping);
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(3);
+        stackedWidget->setCurrentIndex(4);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -357,7 +385,13 @@ public:
         btn_previous_page->setText(QCoreApplication::translate("MainWindow", "Poprzednia", nullptr));
         lblCount->setText(QCoreApplication::translate("MainWindow", "Count", nullptr));
         btn_next_page->setText(QCoreApplication::translate("MainWindow", "Nast\304\231pna", nullptr));
-        label_5->setText(QCoreApplication::translate("MainWindow", "P5", nullptr));
+        checkConntecionwithDB->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        Name_linetxt->setText(QString());
+        NazwaProduktu->setText(QCoreApplication::translate("MainWindow", "Nazwa", nullptr));
+        Ilosc->setText(QCoreApplication::translate("MainWindow", "Ilosc", nullptr));
+        addProduct->setText(QCoreApplication::translate("MainWindow", "Dodaj produkt", nullptr));
+        Amount_linetxt->setText(QString());
+        loadData->setText(QCoreApplication::translate("MainWindow", "Laduj dane", nullptr));
     } // retranslateUi
 
 };
