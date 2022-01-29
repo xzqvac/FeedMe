@@ -36,7 +36,7 @@ public:
     bool connOpen()
     {
         QSqlDatabase mydb =QSqlDatabase::addDatabase("QSQLITE");
-        mydb.setDatabaseName("C:/Users/Radosław/Desktop/projektc++/FeedMe/shoppingListDB.db");
+        mydb.setDatabaseName("../shoppingListDB.db");
 
         if(!mydb.open())
         {
@@ -76,6 +76,14 @@ private slots:
     void on_addProduct_clicked();
 
     void on_loadData_clicked();
+
+    void on_add_recipe_clicked();
+
+    void on_recipses_list_clicked();
+
+    void on_display_add_recipe_clicked();
+
+    void on_add_ingredient_clicked();
 
 private:
     Ui::MainWindow *ui;

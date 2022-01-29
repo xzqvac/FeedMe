@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QIntValidator>
 #include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -12,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     {
     QSqlDatabase mydb =QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("C:/Users/Radosław/Desktop/projektc++/FeedMe/shoppingListDB.db");
+    mydb.setDatabaseName("../shoppingListDB.db");
 
     if(!mydb.open())
     {
@@ -191,5 +192,69 @@ void MainWindow::on_loadData_clicked()
     connClose();
 
 
+}
+
+
+void MainWindow::on_add_recipe_clicked()
+{
+    connOpen();
+    QSqlQuery database;
+
+    QString Name, Recipe_Steps;
+    Name = ui -> recipe_name -> text();
+    Recipe_Steps = ui -> Recipe_steps -> toPlainText();
+
+            database.prepare("insert into recipes (Name, Steps) values (:name, :steps)");
+            database.bindValue(":name",Name);
+            database.bindValue(":steps",Recipe_Steps);
+
+    if(database.exec())
+    {
+        QMessageBox::critical(this, tr("Save"), tr("Saved"));
+        connClose();
+    }
+    else
+    {
+        QMessageBox::critical(this, tr("Error"), database.lastError().text());
+    }
+}
+
+
+void MainWindow::on_recipses_list_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(1);
+}
+
+
+void MainWindow::on_display_add_recipe_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+
+}
+
+
+void MainWindow::on_add_ingredient_clicked()
+{
+
+    //Przenieść do zapisz przepis
+//        connOpen();
+//        QSqlQuery database;
+
+//        QString Ingredient_Name,Ingredient_Amount;
+//        Ingredient_Name = ui -> Ingredient_name -> text();
+//        Ingredient_Amount = ui -> Amount_linetxt -> text();
+
+//        database.prepare("insert into shoppingList (Product, Amount) values (:ingredientName, :ingredientAmount)");
+//        database.bindValue(":ingredientName",Ingredient_Name);
+//        database.bindValue(":ingredientAmount",Ingredient_Amount);
+//        if(database.exec())
+//        {
+//            QMessageBox::critical(this, tr("Save"), tr("Saved"));
+//            connClose();
+//        }
+//        else
+//        {
+//            QMessageBox::critical(this, tr("Error"), database.lastError().text());
+//        }
 }
 
