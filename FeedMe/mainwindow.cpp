@@ -14,14 +14,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     {
     QSqlDatabase mydb =QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("C:/Users/MP/Desktop/FeedMe-main (1)/FeedMe-main/FeedMe-main/FeedMe/shoppingListDB.db");
+    mydb.setDatabaseName("D:/Studies/Semestr 3/Cpp/FeedMe/shoppingListDB.db");
 
     if(!mydb.open())
     {
-        ui->checkConntecionwithDB->setText("Failed");
+        ui->checkConntecionwithDB->setText("Polaczenie nieudane");
     }
     else
-        ui->checkConntecionwithDB->setText("Connected....");
+        ui->checkConntecionwithDB->setText("Polaczenie udane....");
     }
     filter.setPageData(true);
     filter.setPageSize(10);
@@ -107,8 +107,8 @@ void MainWindow::finished()
 void MainWindow::makeTestData()
 {
     Data data;
-    QString path = QGuiApplication::applicationDirPath();
-    path.append("/test.txt");
+    QString path;
+    path.append("D:/Studies/Semestr 3/Cpp/FeedMe/test.txt");
 
     if(!data.writeTest(path, 1000))
     {
@@ -312,7 +312,6 @@ void MainWindow::on_searchRecipe_clicked()
 
     connOpen();
     QSqlQuery database;
-//  database.prepare("select * from recipes where recipeID in (select recipeID from ingredients group by recipeID having recipeID not in (select recipeID from ingredients where name not in (:Names) group by recipeID))");
     QString names = "";
     for(int i = 0; i < ownedIngredients.size(); i++)
     {
@@ -323,8 +322,6 @@ void MainWindow::on_searchRecipe_clicked()
         }
     }
     database.prepare("select * from recipes where recipeID in (select recipeID from ingredients group by recipeID having recipeID not in (select recipeID from ingredients where name not in ("+names+") group by recipeID))");
-
-  //  database.bindValue(":Names",names);
     if(!database.exec()){QMessageBox::critical(this, tr("Error"), database.lastError().text());}
     modal->setQuery(database);
     ui->foundRecipes->setModel(modal);

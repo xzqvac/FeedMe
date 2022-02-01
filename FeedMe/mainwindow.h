@@ -39,7 +39,7 @@ public:
     bool connOpen()
     {
         QSqlDatabase mydb =QSqlDatabase::addDatabase("QSQLITE");
-        mydb.setDatabaseName("C:/Users/MP/Desktop/FeedMe-main (1)/FeedMe-main/FeedMe-main/FeedMe/shoppingListDB.db");
+        mydb.setDatabaseName("D:/Studies/Semestr 3/Cpp/FeedMe/shoppingListDB.db");
 
         if(!mydb.open())
         {
